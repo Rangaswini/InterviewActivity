@@ -1,7 +1,4 @@
 <?php
-echo $_POST['fname'];
-echo  $_POST['lname'];
-
 $servername = "localhost";
 $username = "root";
 $password = "root";
@@ -17,6 +14,10 @@ $data = [
     'quali' =>$_POST['quali'],
 
 ];
+$myfile = fopen("logs.txt", "a") or die("Unable to open file!");
+$txt = "    fname:".$_POST['fname']."   lname:".$_POST['lname']."   email:".$_POST['email']."   phone:".$_POST['phone']."   gender:".$_POST['gender']." Address:".$_POST['addr']."  DOB:".$_POST['bday']."  qualification:".$_POST['quali'];
+fwrite($myfile, $txt);
+fclose($myfile);
 try {
     $conn = new PDO("mysql:host=$servername;dbname=ClientInfo", $username, $password);
     // set the PDO error mode to exception
@@ -34,7 +35,8 @@ catch(PDOException $e)
 
     $conn = null;
  
-    $obj=new Candidate;
+    include_once "candidate.php";
+    $obj=new Candidate();
     $obj->setFname($_POST['fname']);
     $obj->getFname();
 
