@@ -18,11 +18,10 @@ $data = [
 
 ];
 try {
-    $conn = new PDO("mysql:host=$servername;dbname=info", $username, $password);
+    $conn = new PDO("mysql:host=$servername;dbname=ClientInfo", $username, $password);
     // set the PDO error mode to exception
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    echo "Connected successfully"; 
-    $sql="INSERT INTO jobInfo (fname, lname,email,phone ,gender, addr, bday, quali) VALUES (:fname, :lname, :email, :phone, :gender, :addr, :bday, :quali)";
+    $sql="INSERT INTO ClientDetails (fname, lname,email,phone ,gender, addr, bday, quali) VALUES (:fname, :lname, :email, :phone, :gender, :addr, :bday, :quali)";
     $stmt = $conn->prepare($sql); 
     $stmt->execute($data);
 
@@ -34,5 +33,17 @@ catch(PDOException $e)
 
 
     $conn = null;
+ 
+    $obj=new Candidate;
+    $obj->setFname($_POST['fname']);
+    $obj->getFname();
 
+    $obj->setLname($_POST['lname']);
+    $obj->getLname();
+
+    $obj->setEmail($_POST['email']);
+    $obj->getEmail();
+
+    $obj->setPhone($_POST['phone']);
+    $obj->getPhone();
 ?>
